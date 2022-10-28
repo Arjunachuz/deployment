@@ -1,0 +1,65 @@
+{% extends "admin/admin_base.html" %}
+
+{% block content %}
+  <!-- <nav  class=" navbar navbar-light navbar-fixed-top " style="background-color:#E6E6E3; height:7rem; z-index:-1;  position-relative">
+    <span class=" l-50 " style="font-size:45px; color:black; position:absolute; left:43%;">STYLAZA</span>
+</nav> -->
+<!-- Content Header (Page header) -->
+<div class="  ml-5"><h2 class="text-dark font-weight-bold">PRODUCT OFFERS</h2></div>
+<br>
+<div class="content-header sty-one d-flex  justify-content-between mx-5  ">
+
+<div class="pull-right ">
+    <button class="btn btn-dark"><a href="{% url 'brand_offers'%}" class="text-white">Brand Offer</a></button>
+     <button class="btn btn-dark"><a href="{% url 'product_offers'%}" class="text-white">ProductOffer</a></button>
+     <button class="btn btn-dark"><a href="{% url 'category_offer'%}" class="text-white">Category Offer</a></button>
+</div>
+    <div class=""><a href="{% url 'add_product_offers'%}">
+        <button type="submit" class="btn btn-dark">Add Product Offer</button>
+    </a></div>
+</div>
+
+<br>
+
+<div class="table-responsive d-flex justify-content-center">
+    <table class="table table-hover m-3 shadow-lg p-3 mb-5 bg-white rounded  mr-4 w-75">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Product Offer</th>
+            <th scope="col">Status</th>
+            <!-- <th scope="col">Edit</th> -->
+            <th scope="col">Delete</th>
+
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for offer in offers %}
+        <tr>
+            <td>{{offer.id}}</td>
+            <td>{{offer.product}}</td>
+            <td>{{offer.product_offer}}</td>
+            {% if offer.status %}
+            <td>Active</td>
+            {% else %}
+            <td>Not active</td>
+            {% endif %}
+
+
+
+           
+
+            <td><a href="{%  url 'delete_product_offers' offer.id %}">
+                <button type="submit" class="btn btn-dark" onclick="return confirm('Are you sure want to delete this offer ?')">Delete</button>
+            </a></td>
+
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- /.content -->
+{% endblock content %}

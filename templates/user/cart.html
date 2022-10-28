@@ -1,0 +1,330 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Male_Fashion Template">
+    <meta name="keywords" content="Male_Fashion, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Male-Fashion | Template</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' ' %}"type="text/css">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' ' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/elegant-icons.css' ' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' ' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/nice-select.css' ' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' ' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/slicknav.min.css' ' %}" type="text/css">
+	<link rel="stylesheet" href="{% static 'css/style.css' ' %}" type="text/css">
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <!-- <div id="preloder">
+        <div class="loader"></div>
+    </div> -->
+
+    <!-- Offcanvas Menu Begin -->
+    
+    
+    <!-- Offcanvas Menu End -->
+
+    <!-- Header Section Begin -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-3">
+                <div class="header__logo">
+                    <a href="./index.html"><img style="width:120px ;" src="{% static 'img/troop 2.png' %} " alt=""></a>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <nav class="header__menu mobile-menu">
+                    <ul>
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li class="active"><a href="{% url 'shop' %}">Shop</a></li>
+                        <li><a href="{% url 'blog'%}">Blog</a></li>
+                        <!-- <li><a href="./contact.html">Contacts</a></li> -->
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-lg-3 col-md-3">
+                <div style='width: 300px;'class="header__nav__option">
+                    <!-- <a href="#" class="search-switch"><img src="{% static 'img/icon/search.png' %}" alt=""></a> -->
+                    <a href="{% url 'wishlist' %}"><img src="{% static 'img/icon/heart.png' %}" alt=""></a>
+                    <a href="{% url 'cart' %}"><img src="{% static 'img/icon/cart.png' %}" alt=""></a> 
+                        <!-- <a href="#"></a><i class=' fa fa-user'></i></a> -->
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'logout' %}"><p>Logout</p></a>
+                    <a href="{% url 'dashboard'  %}"><p>{{user.full_name}}</p></a>
+                    {% else %}
+                    <a href="{% url 'loginpage' %}"><p>Sign In</p></a>
+                    <a href="{% url 'register' %}"><p>Sign Up</p></a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="canvas__open"><i class="fa fa-bars"></i></div>
+    </div>
+    <!-- Header Section End -->
+
+    <!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__text">
+                        <h4>Shopping Cart</h4>
+                        <div class="breadcrumb__links">
+                            <a href="{% url 'home' %}">Home</a>
+                            <a href="{% url 'shop' %}">Shop</a>
+                            <span>Shopping Cart</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Shopping Cart Section Begin -->
+    {% if not cart_items %}
+        <br>
+        <br>
+        <br>
+        <h2 class="text-center">Your Shopping Cart Is Empty !</h2>
+       <br>
+       <br>
+        <div class="continue__btn text-center">
+            <a href="{% url 'shop' %}">Continue Shopping</a>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        
+
+    {% else %}
+    <section class="shopping-cart spad">
+        {% for message in messages %}
+    <div id="message" class="container">
+    <div {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %} role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
+        
+        {{ message }}
+    </div>
+    </div>
+    {% endfor %}
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    
+                    <div class="shopping__cart__table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for cart_item in cart_items %}
+                                <tr>
+                                    <td class="quantity__item" >
+                                        <div style='margin-right: 200px;'class="product__item sale">
+                                
+                                            <div  style='background-size: contain; width: 100px; height: 100px;'class="product__item__pic set-bg" data-setbg="{{cart_item.product.images.url}}">
+                                               
+                                            </div>
+                                        </div>    
+                                        <div style='margin-top: 50px;' class="product__cart__item__text">
+                                            <a href="{% url 'shop-details' cart_item.product.id %}"><h6>{{ cart_item.product.product_name }}</h6></a>
+                                            {% if cart_item.product.offer %}
+                                            <h5>${{ cart_item.product.offer }}</h5>
+                                            {% else %}
+                                            <h5>${{ cart_item.product.price }}</h5>
+                                            {% endif %}
+                                            
+                                        </div>
+                                    </td>
+                                    <td class="quantity__item">
+                                        <div style='padding-top: 0;width: 100px;margin-left: -40px;'class="product__pagination">
+                                            <div style="margin-right: 200px; width:150px;" class="">
+                                                <span><a href="{% url 'remove_cart' cart_item.product.id %}"><span><</span></a></span>
+                                                <input style="border:none; width:30px;" type="text" value="{{ cart_item.quantity }}">
+                                                <a href="{% url 'add_cart' cart_item.product.id %}"><span>></span></a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    {% if cart_item.product.offer %}
+                                    <td class="cart__price">${{cart_item.offer_total }}</td>
+                                    {% else %}
+                                    <td class="cart__price">${{cart_item.sub_total }}</td>
+                                    {% endif %}
+                                    <td class="cart__close"><a href="{% url 'remove_cart_item' cart_item.product.id %}"><i class="fa fa-close"></i></a></td>
+                                </tr>
+                                {% endfor %}
+                                
+                                
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="continue__btn">
+                                <a href="{% url 'shop' %}">Continue Shopping</a>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    
+                    
+                    <div class="cart__discount">
+                        {% if coupon_code %}
+                        {% else %}
+                        <h6>Discount codes</h6>
+                        <form action="{% url 'coupon-apply' %}" method="post">
+                            {% csrf_token %}
+                            <input type="text" name="coupon_code" placeholder="Enter the Coupon code">
+                            <button type="submit">Apply</button>
+                            
+
+                        </form>
+                        {% endif %}
+                        
+                        {% if coupon_code %}
+                        <a href="{% url 'remove_coupon' %}"><button style="margin-left:100px ; position: relative; top: 25px;" type="submit">Remove Coupon</button></a>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="cart__total">
+                        <h6>Cart total</h6>
+                        <ul>
+                            <li>Subtotal <span>${{total}}</span></li>
+                            <li>Tax <span>${{tax}}</span></li>
+                            {% if coupon_code %}
+                              <li>Coupon <span>$-{{coupon.discount}}</span></li>
+                            {% else %}
+                            {% endif %}
+                            <li>Total <span>${{grand_total}}</span></li>
+                           
+                            
+                        
+
+                        </ul>
+                        <a href="{% url 'checkout' %}" class="primary-btn">Proceed to checkout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+    <!-- Shopping Cart Section End -->
+
+    <!-- Footer Section Begin -->
+    <footer class="footer px-5" style="width:100%;" >
+        <div class="container-fluid" style="width:100%;">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer__about">
+                        <div class="footer__logo">
+                            <a href="#"><img src="img/footer-logo.png" alt=""></a>
+                        </div>
+                        <p>A group that plays popular music or military music is usually called a band; a drum and bugle corps is a type of the latter.</p>
+                        <a href="#"><img src="{% static 'img/payment.png' %}" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6">
+                    <div class="footer__widget">
+                       
+                        <ul>
+                            <li><a href="#">About</a></li>
+                            <li><a href="#">Services</a></li>
+                            <li><a href="#">Blog</a></li>
+                            <li><a href="#">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-6">
+                    <div class="footer__widget">
+                        
+                        <ul>
+                            <li><a href="#">Support</a></li>
+                            <li><a href="#">Knowledge Base</a></li>
+                            <li><a href="#">Live Chat</a></li>
+                          
+                        </ul>
+                    </div>
+                </div>
+				<div class="col-lg-2 col-md-3 col-sm-6">
+                    <div class="footer__widget">
+                        
+                        <ul>
+                            <li><a href="#">Jobs</a></li>
+                            <li><a href="#">Our Team</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Leadership</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="footer__copyright__text">
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        <p>Copyright ©
+                            <script>
+                                document.write(new Date().getFullYear());
+                            </script>2020
+                            <!-- All rights reserved | This template is made with <i class="fa fa-heart-o"
+                            aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> -->
+                        </p>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+
+    <!-- Search Begin -->
+    <div class="search-model">
+        <div class="h-100 d-flex align-items-center justify-content-center">
+            <div class="search-close-switch">+</div>
+            <form class="search-model-form">
+                <input type="text" id="search-input" placeholder="Search here.....">
+            </form>
+        </div>
+    </div>
+    <!-- Search End -->
+    
+
+    <!-- Js Plugins -->
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static 'js/jquery.nicescroll.min.js' %}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/jquery.countdown.min.js' %}"></script>
+    <script src="{% static 'js/jquery.slicknav.js' %}"></script>
+    <script src="{% static 'js/mixitup.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>

@@ -1,0 +1,287 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Male_Fashion Template">
+    <meta name="keywords" content="Male_Fashion, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Male-Fashion | Template</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' ' %}"type="text/css">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' ' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/elegant-icons.css' ' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' ' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/nice-select.css' ' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' ' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/slicknav.min.css' ' %}" type="text/css">
+	<link rel="stylesheet" href="{% static 'css/style.css' ' %}" type="text/css">
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <!-- <div id="preloder">
+        <div class="loader"></div>
+    </div> -->
+
+    <!-- Offcanvas Menu Begin -->
+    
+    
+    <!-- Offcanvas Menu End -->
+
+    <!-- Header Section Begin -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-3">
+                <div class="header__logo">
+                    <a href="./index.html"><img style="width:120px ;" src="{% static 'img/troop 2.png' %} " alt=""></a>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <nav class="header__menu mobile-menu">
+                    <ul>
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li><a href="{% url 'shop' %}">Shop</a></li>
+                        <li><a href="{% url 'blog'%}">Blog</a></li>
+                        <!-- <li><a href="./contact.html">Contacts</a></li> -->
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-lg-3 col-md-3">
+                <div style='width: 300px;'class="header__nav__option">
+                    <!-- <a href="#" class="search-switch"><img src="{% static 'img/icon/search.png' %}" alt=""></a> -->
+					<a href="{% url 'wishlist' %}"><img src="{% static 'img/icon/heart.png' %}" alt=""></a>
+                    <a href="{% url 'cart' %}"><img src="{% static 'img/icon/cart.png' %}" alt=""></a> 
+                        <!-- <a href="#"></a><i class=' fa fa-user'></i></a> -->
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'logout' %}"><p>Logout</p></a>
+					<a href="{% url 'dashboard'  %}"><p>{{user.full_name}}</p></a>
+                    {% else %}
+                    <a href="{% url 'loginpage' %}"><p>Sign In</p></a>
+                    <a href="{% url 'register' %}"><p>Sign Up</p></a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="canvas__open"><i class="fa fa-bars"></i></div>
+    </div>
+    <!-- Header Section End -->
+
+    <!-- Breadcrumb Section Begin -->
+    <!-- <section class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__text">
+                        <h4>Shopping Cart</h4>
+                        <div class="breadcrumb__links">
+                            <a href="./index.html">Home</a>
+                            <a href="./shop.html">Shop</a>
+                            <span>Shopping Cart</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+	
+
+	
+
+	
+	
+		<div class="container border " style="margin: 0 auto;width: 50%;padding: 50px;background: #ffffff;margin-top: 50px;margin-bottom: 50px;">
+		<div class="row invoice row-printable">
+			<div class="col-md-12">
+				<!-- col-lg-12 start here -->
+				<div class="panel panel-default plain" id="dash_0">
+					<!-- Start .panel -->
+					<div class="panel-body p30">
+						<div class="row">
+							<!-- Start .row -->
+							<div class="col-lg-6">
+								<!-- col-lg-6 start here -->
+								<div class="invoice-logo"><img src="{% static 'img/troop 2.png' %} " alt="Invoice logo" style="max-height: 40px;"></div>
+							</div>
+							<!-- col-lg-6 end here -->
+							<div class="col-lg-6">
+								<!-- col-lg-6 start here -->
+								<div class="invoice-from">
+									<ul class="list-unstyled text-right">
+										<li><strong>Invoiced To</strong></li>
+										<li>{{order.full_name}}</li>
+										<li>{{order.full_address}}</li>
+										<li>{{order.city}}, {{order.state}}</li>
+										<li>{{order.country}}</li>
+									</ul>
+								</div>
+							</div>
+							<!-- col-lg-6 end here -->
+							<div class="col-lg-12">
+								<!-- col-lg-12 start here -->
+								<div class="invoice-details mt25">
+									<div class="well">
+										<ul class="list-unstyled mb0">
+											<li><strong>Order</strong> #{{order.order_number}}</li>
+											<li><strong>Transaction :</strong> {{order.payment.payment_method}}</li>
+											<li><strong>Order Date:</strong> {{order.created_at}}</li>
+											<li><strong>Payment Status:</strong> {{order.payment.status}}</li>
+										</ul>
+									</div>
+								</div>
+	
+								<div class="invoice-items">
+									<div class="table-responsive" style="overflow: hidden; outline: none;" tabindex="0">
+										<table class="table table-bordered">
+											<thead>
+												<tr>
+													<th class="per70 text-center">Products</th>
+													<th class="per5 text-center">Qty</th>
+													<th class="per25 text-center">Total</th>
+												</tr>
+											</thead>
+											<tbody>
+											  {% for item in order_detail %}
+												<tr>
+													<td>{{item.product.product_name}}</td>
+													<td class="text-center">{{item.quantity}}</td>
+													<td class="text-center">${{item.product_price}} USD</td>
+												</tr>
+											  {% endfor %}
+											</tbody>
+											<tfoot>
+												<tr>
+													<th colspan="2" class="text-right">Sub Total:</th>
+													<th class="text-center">${{subtotal}} USD</th>
+												</tr>
+												<tr>
+													<th colspan="2" class="text-right">Tax:</th>
+													<th class="text-center">${{order.tax}} USD</th>
+												</tr>
+	
+												<tr>
+													<th colspan="2" class="text-right">Grand Total:</th>
+													<th class="text-center">${{order.order_total}} USD</th>
+												</tr>
+											</tfoot>
+										</table>
+									</div>
+								</div>
+								<div class="invoice-footer mt25">
+									
+								</div>
+							</div>
+							<!-- col-lg-12 end here -->
+						</div>
+						<!-- End .row -->
+					</div>
+				</div>
+				<!-- End .panel -->
+			</div>
+			<!-- col-lg-12 end here -->
+		</div>
+		</div>
+	
+	
+
+
+	
+<footer class="footer px-5" style="width:100%;" >
+	<div class="container-fluid" style="width:100%;">
+		<div class="row">
+			<div class="col-lg-3 col-md-6 col-sm-6">
+				<div class="footer__about">
+					<div class="footer__logo">
+						<a href="#"><img src="img/footer-logo.png" alt=""></a>
+					</div>
+					<p>A group that plays popular music or military music is usually called a band; a drum and bugle corps is a type of the latter.</p>
+					<a href="#"><img src="{% static 'img/payment.png' %}" alt=""></a>
+				</div>
+			</div>
+			<div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6">
+				<div class="footer__widget">
+				   
+					<ul>
+						<li><a href="#">About</a></li>
+						<li><a href="#">Services</a></li>
+						<li><a href="#">Blog</a></li>
+						<li><a href="#">Contact Us</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-lg-2 col-md-3 col-sm-6">
+				<div class="footer__widget">
+					
+					<ul>
+						<li><a href="#">Support</a></li>
+						<li><a href="#">Knowledge Base</a></li>
+						<li><a href="#">Live Chat</a></li>
+					  
+					</ul>
+				</div>
+			</div>
+			<div class="col-lg-2 col-md-3 col-sm-6">
+				<div class="footer__widget">
+					
+					<ul>
+						<li><a href="#">Jobs</a></li>
+						<li><a href="#">Our Team</a></li>
+						<li><a href="#">Privacy Policy</a></li>
+						<li><a href="#">Leadership</a></li>
+					</ul>
+				</div>
+			</div>
+			
+		</div>
+		<div class="row">
+			<div class="col-lg-12 text-center">
+				<div class="footer__copyright__text">
+					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+					<p>Copyright ©
+						<script>
+							document.write(new Date().getFullYear());
+						</script>2020
+						<!-- All rights reserved | This template is made with <i class="fa fa-heart-o"
+						aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> -->
+					</p>
+					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
+<!-- Footer Section End -->
+
+<!-- Search Begin -->
+<div class="search-model">
+	<div class="h-100 d-flex align-items-center justify-content-center">
+		<div class="search-close-switch">+</div>
+		<form class="search-model-form">
+			<input type="text" id="search-input" placeholder="Search here.....">
+		</form>
+	</div>
+</div>
+<!-- Search End -->
+
+<!-- Js Plugins -->
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+<script src="{% static 'js/jquery.nicescroll.min.js' %}"></script>
+<script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+<script src="{% static 'js/jquery.countdown.min.js' %}"></script>
+<script src="{% static 'js/jquery.slicknav.js' %}"></script>
+<script src="{% static 'js/mixitup.min.js' %}"></script>
+<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>

@@ -1,0 +1,356 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Male_Fashion Template">
+    <meta name="keywords" content="Male_Fashion, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Male-Fashion | Template</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' ' %}"type="text/css">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' ' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/elegant-icons.css' ' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' ' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/nice-select.css' ' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' ' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/slicknav.min.css' ' %}" type="text/css">
+	<link rel="stylesheet" href="{% static 'css/style.css' ' %}" type="text/css">
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <!-- <div id="preloder">
+        <div class="loader"></div>
+    </div> -->
+
+    <!-- Offcanvas Menu Begin -->
+    
+    
+    <!-- Offcanvas Menu End -->
+
+    <!-- Header Section Begin -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-3">
+                <div class="header__logo">
+                    <a href="./index.html"><img style="width:120px ;" src="{% static 'img/troop 2.png' %} " alt=""></a>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <nav class="header__menu mobile-menu">
+                    <ul>
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li class="active"><a href="{% url 'shop' %}">Shop</a></li>
+                        <li><a href="{% url 'blog'%}">Blog</a></li>
+                        <!-- <li><a href="./contact.html">Contacts</a></li> -->
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-lg-3 col-md-3">
+                <div style='width: 300px;'class="header__nav__option">
+                    <!-- <a href="#" class="search-switch"><img src="{% static 'img/icon/search.png' %}" alt=""></a> -->
+                    <a href="{% url 'wishlist' %}"><img src="{% static 'img/icon/heart.png' %}" alt=""></a>
+                    <a href="{% url 'cart' %}"><img src="{% static 'img/icon/cart.png' %}" alt=""></a> 
+                        <!-- <a href="#"></a><i class=' fa fa-user'></i></a> -->
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'logout' %}"><p>Logout</p></a>
+                    <a href="{% url 'dashboard'  %}"><p>{{user.full_name}}</p></a>
+                    {% else %}
+                    <a href="{% url 'loginpage' %}"><p>Sign In</p></a>
+                    <a href="{% url 'register' %}"><p>Sign Up</p></a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="canvas__open"><i class="fa fa-bars"></i></div>
+    </div>
+    <!-- Header Section End -->
+
+    <!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__text">
+                        <h4>Shopping Cart</h4>
+                        <div class="breadcrumb__links">
+                            <a href="{% url 'home' %}">Home</a>
+                            <a href="{% url 'shop' %}">Shop</a>
+                            <span>Payments</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Shopping Cart Section Begin -->
+    
+    <section class="shopping-cart spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="shopping__cart__table">
+                        <div class="card">
+                            <h5 class="card-header">Billing Address</h5>
+                            <div class="card-body">
+                              
+                              <p class="card-text mb-0">{{ order.full_name }}</p>
+                              <p class="card-text mb-0">{{ order.full_address }}</p>
+                              <p class="card-text mb-0">{{ order.city }}, {{ order.state }}</p>
+                              <p class="card-text mb-0">{{ order.country }}</p>
+                              <p class="card-text mb-0">{{ order.email }}</p>
+                              <p class="card-text mb-0">{{ order.phone }}</p>
+                              {% if order.order_note %}
+                                 <b>Order Note:</b> {{ order.order_note }}
+                              {% endif %}
+                              
+                            </div>
+                          </div>
+                    </div>
+                    <!-- <div class="shopping__cart__table">
+                        <div class="card">
+                            <h5 class="card-header">Payment Method</h5>
+                            <div class="card-body">
+                              
+                              <p class="card-text">Paypal</p>
+                              
+                            </div>
+                          </div>
+                    </div> -->
+                    <div class="shopping__cart__table">
+                        <div class="card">
+                            <h5 class="card-header">Review Products</h5>
+                            <div class="card-body">
+                              
+                                <div class="checkout__order__products">Product&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Quantity<span>Total</span></div>
+                                {% for cart_item in cart_items %}
+                                <ul class="checkout__total__products">
+                                    <li>{{ cart_item.product.product_name }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ cart_item.quantity }}<span>${{cart_item.sub_total }}</span></li>
+                                    
+                                </ul>
+                                {% endfor %}
+                                
+                               
+                              
+                            </div>
+                          </div>
+                    </div>
+                    
+                    
+                    
+                </div>
+                <div class="col-lg-6">
+                    
+                    <div class="cart__total">
+                        <h6>Cart total</h6>
+                        <ul>
+                            <li>Subtotal <span>${{total}}</span></li>
+                            <li>Tax <span>${{tax}}</span></li>
+                            {% if offer %}
+                            <li>Offer <span>${{offer}}</span></li>
+                            <li>Total <span>${{offer_price}}</span></li>
+                            {% else %}
+                            <li>Total <span>${{grand_total}}</span></li>
+                            {% endif %}
+                        </ul>
+                        
+                        <div id="paypal-button-container"></div>
+                        <div style="text-align:center;"><a href="{% url 'payment_cod'%}"><button type="submit" class="site-btn" style="border-radius:40px; width:470px;height:40px; padding: 1px;">Cash On Delivery</button></a></div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Shopping Cart Section End -->
+
+    <!-- Footer Section Begin -->
+    <footer class="footer px-5" style="width:100%;" >
+        <div class="container-fluid" style="width:100%;">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer__about">
+                        <div class="footer__logo">
+                            <a href="#"><img src="img/footer-logo.png" alt=""></a>
+                        </div>
+                        <p>A group that plays popular music or military music is usually called a band; a drum and bugle corps is a type of the latter.</p>
+                        <a href="#"><img src="{% static 'img/payment.png' %}" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6">
+                    <div class="footer__widget">
+                       
+                        <ul>
+                            <li><a href="#">About</a></li>
+                            <li><a href="#">Services</a></li>
+                            <li><a href="#">Blog</a></li>
+                            <li><a href="#">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-6">
+                    <div class="footer__widget">
+                        
+                        <ul>
+                            <li><a href="#">Support</a></li>
+                            <li><a href="#">Knowledge Base</a></li>
+                            <li><a href="#">Live Chat</a></li>
+                          
+                        </ul>
+                    </div>
+                </div>
+				<div class="col-lg-2 col-md-3 col-sm-6">
+                    <div class="footer__widget">
+                        
+                        <ul>
+                            <li><a href="#">Jobs</a></li>
+                            <li><a href="#">Our Team</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Leadership</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="footer__copyright__text">
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        <p>Copyright ©
+                            <script>
+                                document.write(new Date().getFullYear());
+                            </script>2020
+                            <!-- All rights reserved | This template is made with <i class="fa fa-heart-o"
+                            aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> -->
+                        </p>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+
+    <!-- Search Begin -->
+    <div class="search-model">
+        <div class="h-100 d-flex align-items-center justify-content-center">
+            <div class="search-close-switch">+</div>
+            <form class="search-model-form">
+                <input type="text" id="search-input" placeholder="Search here.....">
+            </form>
+        </div>
+    </div>
+    <!-- Search End -->
+
+    <!-- Js Plugins -->
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static 'js/jquery.nicescroll.min.js' %}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/jquery.countdown.min.js' %}"></script>
+    <script src="{% static 'js/jquery.slicknav.js' %}"></script>
+    <script src="{% static 'js/mixitup.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+
+    <!-- paypal script -->
+
+    <script src="https://www.paypal.com/sdk/js?client-id=AXqinLvUy_tXNerOz8tY5ZPVCGgiP8fUVyrZo2PFNXfkpuoRXRhfGcxOaaUD8pog8vXlhOD_IHoSQCxm&currency=USD"></script>
+    <script>
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+
+        var amount = "{{ grand_total }}"
+        var url = "{% url 'payments' %}"
+        var csrftoken = getCookie('csrftoken');
+        var orderID = "{{order.order_number}}"
+        var payment_method = 'Paypal'
+        var redirect_url = "{% url 'order_complete' %}"
+        // Render the PayPal button into #paypal-button-container
+        paypal.Buttons({
+            style: {
+                color:  'blue',
+                shape:  'pill',
+                label:  'pay',
+                height: 40
+            },
+
+            // Set up the transaction
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: amount,
+                        }
+                    }]
+                });
+            },
+
+            // Finalize the transaction
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    // Successful capture! For demo purposes:
+                    console.log(details);
+                    
+                    sendData();
+                    // alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+                    function sendData(){
+                        fetch(url, {
+                            method : "POST",
+                            headers: {
+                                "Content-type": "application/json",
+                                "X-CSRFToken" : csrftoken,
+                            },
+                            body: JSON.stringify({
+                                  orderID: orderID,
+                                  transID: details.id,
+                                  payment_method: payment_method,
+                                  status : details.status,
+                            }),
+                        })
+                            .then((response) => response.json())
+                            .then((data) => {
+                               window.location.href = redirect_url + '?order_number=' + data.order_number + '&payment_id=' + data.transID;   
+                            });
+
+                    }
+                    // Replace the above to show a success message within this page, e.g.
+                    // const element = document.getElementById('paypal-button-container');
+                    // element.innerHTML = '';
+                    // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                    // Or go to another URL:  actions.redirect('thank_you.html');
+                });
+            }
+
+
+        }).render('#paypal-button-container');
+    </script>
+</body>
+
+</html>

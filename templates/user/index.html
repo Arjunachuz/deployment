@@ -1,0 +1,475 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Male_Fashion Template">
+    <meta name="keywords" content="Male_Fashion, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Male-Fashion | Template</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
+    rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' ' %}"type="text/css">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' ' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/elegant-icons.css' ' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' ' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/nice-select.css' ' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' ' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/slicknav.min.css' ' %}" type="text/css">
+	<link rel="stylesheet" href="{% static 'css/style.css' ' %}" type="text/css">
+    <style>
+  *{
+    margin: 0;
+    padding: 0;
+}
+
+.searchBox {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.searchBox input{
+    background-color: rgb(255, 255, 255);
+    border: none;
+    outline: none;
+    width: 0;
+    padding: 0; 
+    opacity: 0;
+    border-radius: 40px;
+    line-height: 40px;
+    font-size: 18px;
+    color: rgb(0, 0, 0);
+    transition: all 1s;
+}
+
+.searchBox input::placeholder {
+    color: rgba(0, 0, 0, 0.5);
+    font-weight: 400;
+}
+
+.searchBox i {
+    background-color: rgb(255, 255, 255);
+    width: 40px;
+    height: 40px;
+    padding: 9px 10px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 40px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all .5s;
+}
+
+.searchBox:hover input{
+    width: 240px;
+    opacity: 1;
+    padding: 10px 20px;
+}
+
+.searchBox:hover i{
+    color: #fff;
+}
+
+    </style>
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Offcanvas Menu Begin -->
+   
+   
+    <!-- Offcanvas Menu End -->
+
+    <!-- Header Section Begin -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-3">
+                <div class="header__logo">
+                    <a href="./index.html"><img style="width:120px ;" src="{% static 'img/troop 2.png' %} " alt=""></a>
+                </div>
+            </div>
+           
+            <div class="col-lg-6 col-md-6">
+                <nav class="header__menu mobile-menu">
+                    <ul>
+                        <li class="active"><a href="./index.html">Home</a></li>
+                        <li><a href="{% url 'shop' %}">Shop</a></li>
+                        <li><a href="{% url 'blog'%}">Blog</a></li>
+                       
+                    </ul>
+                    
+                </nav>
+            </div>
+      
+            <div class="col-lg-3 col-md-3">
+                
+                <div style='width: 300px;'class="header__nav__option">
+
+                    <div style='position:absolute; left: 0px;    margin-top: -7px;' class="searchBox">
+                        <form action="{% url 'search' %}" method="get">
+                        <input type="search" placeholder="Search" name="keyword">
+                    </form>
+                        <i style="margin-top:-15px ;" class="fa fa-search"></i>
+                    </div>
+                   
+                    <!-- <a href="#" class="search-switch"><img src="{% static 'img/icon/search.png' %}" alt=""></a> -->
+                    <a style="position:relative; right: 50px;" href="{% url 'wishlist' %}"><img src="{% static 'img/icon/heart.png' %}" alt=""></a>
+                    <a style="position:relative; right: 45px;" href="{% url 'cart' %}"><img src="{% static 'img/icon/cart.png' %}" alt=""></a> 
+                        <!-- <a href="#"></a><i class=' fa fa-user'></i></a> -->
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'logout' %}"><p>Logout</p></a>
+                    <a href="{% url 'dashboard'  %}"><p>{{user.full_name}}</p></a>
+                    {% else %}
+                    <a href="{% url 'loginpage' %}"><p>Sign In</p></a>
+                    <a href="{% url 'register' %}"><p>Sign Up</p></a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="canvas__open"><i class="fa fa-bars"></i></div>
+    </div>
+    {% for message in messages %}
+    <div id="message" class="container">
+    <div {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %} role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
+        
+        {{ message }}
+    </div>
+    </div>
+    {% endfor %}
+
+    <!-- Header Section End -->
+
+    <!-- Hero Section Begin -->
+    <section class="hero">
+        <div class="hero__slider owl-carousel">
+            <div class="hero__items set-bg" data-setbg="{% static 'img/hero/piano.webp' %}">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-5 col-lg-7 col-md-8">
+                            <div class="hero__text">
+                                <h6 style="color:white ;">Summer Collection</h6>
+                                <h2 style="color:white ;">Fall - Winter Collections 2030</h2>
+                                <p style="color:white ;">A specialist label creating luxury essentials. Ethically crafted with an unwavering
+                                commitment to exceptional quality.</p>
+                                <a href="{% url 'shop' %}" class="primary-btn">Shop now <span class="arrow_right"></span></a>
+                                <div class="hero__social">
+                                    <a href="#"><i style="color:white ;" class="fa fa-facebook"></i></a>
+                                    <a href="#"><i style="color:white ;" class="fa fa-twitter"></i></a>
+                                    
+                                    <a href="#"><i style="color:white ;" class="fa fa-instagram"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero__items set-bg" data-setbg="{% static 'img/hero/piano 2.jpg' %}">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-5 col-lg-7 col-md-8">
+                            <div class="hero__text">
+                                <h6 style="color:white ;">Summer Collection</h6>
+                                <h2 style="color:white ;">Fall - Winter Collections 2030</h2>
+                                <p style="color:white ;">A specialist label creating luxury essentials. Ethically crafted with an unwavering
+                                commitment to exceptional quality.</p>
+                                <a href="{% url 'shop' %}" class="primary-btn">Shop now <span class="arrow_right"></span></a>
+                                <div class="hero__social">
+                                    <a href="#"><i style="color:white ;" class="fa fa-facebook"></i></a>
+                                    <a href="#"><i style="color:white ;" class="fa fa-twitter"></i></a>
+                                    
+                                    <a href="#"><i style="color:white ;" class="fa fa-instagram"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Hero Section End -->
+
+    <!-- Banner Section Begin -->
+    <section class="banner spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7 offset-lg-4">
+                    <div class="banner__item">
+                        <div class="banner__item__pic">
+                            <img src="{% static 'img/banner/banner (2).png' %}" alt="">
+                        </div>
+                        <div class="banner__item__text">
+                            <h2>Metal Broad<br>Collections 2023</h2>
+                            <a href="{% url 'shop' %}">Shop now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="banner__item banner__item--middle">
+                        <div class="banner__item__pic">
+                            <img src="{% static 'img/banner/banner (1).png' %}" alt="">
+                        </div>
+                        <div class="banner__item__text">
+                            <h2>New Golden</h2>
+                            <a href="{% url 'shop' %}">Shop now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="banner__item banner__item--last">
+                        <div class="banner__item__pic">
+                            <img src="{% static 'img/banner/banner (3).png' %}" alt="">
+                        </div>
+                        <div class="banner__item__text">
+                            <h2>Accessories</h2>
+                            <a href="{% url 'shop' %}">Shop now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Banner Section End -->
+
+    <!-- Product Section Begin -->
+    <section class="product spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="filter__controls">
+                        <!-- <li  data-filter="*">Best Sellers</li> -->
+                        <li class="active" data-filter=".new-arrivals">Explore </li>
+                        <!-- <li data-filter=".hot-sales">Hot Sales</li> -->
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="row product__filter">
+                {% for item in product %}
+                <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals">
+                    
+                    <div class="product__item">
+                        
+                        
+                        <div style='background-size: contain;'class="product__item__pic set-bg" data-setbg="{{ item.images.url }}">
+                            
+                            <ul class="product__hover">
+                                <li><a href="#"><img src="{% static 'img/icon/heart.png' %}" alt=""></a></li>
+                               
+                            </ul>
+                        </div>
+                        <div class="product__item__text">
+                            <h6>{{ item.product_name }}</h6>
+                            <a href="{% url 'shop-details' item.id %}" class="add-cart">View details</a>
+                            <div class="rating">
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                            </div>
+                            {% if item.product_offer %}
+                            <h5>${{ item.price }}</h5>
+                            {% else %}
+                            <h5>${{ item.price }}</h5>
+                            {% endif %}
+                            
+                        </div>
+                       
+                    </div>
+                    
+                </div>
+                {% endfor %}
+            </div>
+            
+        </div>
+    </section>
+    <!-- Product Section End -->
+
+    <!-- Categories Section Begin -->
+    
+    <!-- Categories Section End -->
+
+    <!-- Instagram Section Begin -->
+    <section class="instagram spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="instagram__pic">
+                        <div class="instagram__pic__item set-bg" data-setbg="{% static 'img/instagram/image 1.png' %}"></div>
+                        <div class="instagram__pic__item set-bg" data-setbg="{% static 'img/instagram/pic2 1.png' %}"></div>
+                        <div class="instagram__pic__item set-bg" data-setbg="{% static 'img/instagram/pic3 1.png' %}"></div>
+                        <div class="instagram__pic__item set-bg" data-setbg="{% static 'img/instagram/pic4 1.png' %}"></div>
+                        <div class="instagram__pic__item set-bg" data-setbg="{% static 'img/instagram/pic5 1.png' %}"></div>
+                        <div class="instagram__pic__item set-bg" data-setbg="{% static 'img/instagram/pic6 1.png' %}"></div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="instagram__text">
+                        <h2>Instagram</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua.</p>
+                        <h3>#Troop</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Instagram Section End -->
+
+    <!-- Latest Blog Section Begin -->
+    <section class="latest spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <span>Latest News</span>
+                        <h2>Trends of the Centuary</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="blog__item">
+                        <div class="blog__item__pic set-bg" data-setbg="{% static 'img/blog/scarlet 1.png' %}"></div>
+                        <div class="blog__item__text">
+                            <span><img src="{% static 'img/icon/calendar.png' %}" alt=""> 16 February 2020</span>
+                            <h5>What Scarlet Are<br> The Best 1</h5>
+                            <a href="#">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="blog__item">
+                        <div class="blog__item__pic set-bg" data-setbg="{% static 'img/blog/news2 1.png' %}"></div>
+                        <div class="blog__item__text">
+                            <span><img src="{% static 'img/icon/calendar.png' %}" alt=""> 21 February 2020</span>
+                            <h5>Bands Do <br>Last Forever</h5>
+                            <a href="#">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="blog__item">
+                        <div class="blog__item__pic set-bg" data-setbg="{% static 'img/blog/news3 1.png' %}"></div>
+                        <div class="blog__item__text">
+                            <span><img src="{% static 'img/icon/calendar.png' %}" alt=""> 28 February 2020</span>
+                            <h5>Music Defines <br> The Health</h5>
+                            <a href="#">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Latest Blog Section End -->
+
+    <!-- Footer Section Begin -->
+    <footer class="footer px-5" style="width:100%;" >
+        <div class="container-fluid" style="width:100%;">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer__about">
+                        <div class="footer__logo">
+                            <a href="#"><img src="img/footer-logo.png" alt=""></a>
+                        </div>
+                        <p>A group that plays popular music or military music is usually called a band; a drum and bugle corps is a type of the latter.</p>
+                        <a href="#"><img src="{% static 'img/payment.png' %}" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6">
+                    <div class="footer__widget">
+                       
+                        <ul>
+                            <li><a href="#">About</a></li>
+                            <li><a href="#">Services</a></li>
+                            <li><a href="#">Blog</a></li>
+                            <li><a href="#">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-6">
+                    <div class="footer__widget">
+                        
+                        <ul>
+                            <li><a href="#">Support</a></li>
+                            <li><a href="#">Knowledge Base</a></li>
+                            <li><a href="#">Live Chat</a></li>
+                          
+                        </ul>
+                    </div>
+                </div>
+				<div class="col-lg-2 col-md-3 col-sm-6">
+                    <div class="footer__widget">
+                        
+                        <ul>
+                            <li><a href="#">Jobs</a></li>
+                            <li><a href="#">Our Team</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Leadership</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="footer__copyright__text">
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        <p>Copyright ©
+                            <script>
+                                document.write(new Date().getFullYear());
+                            </script>2020
+                            <!-- All rights reserved | This template is made with <i class="fa fa-heart-o"
+                            aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> -->
+                        </p>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+
+    <!-- Search Begin -->
+    <div class="search-model">
+        <div class="h-100 d-flex align-items-center justify-content-center">
+            <div class="search-close-switch">+</div>
+            <form class="search-model-form">
+                <input type="text" id="search-input" placeholder="Search here.....">
+            </form>
+        </div>
+    </div>
+    <!-- Search End -->
+    
+
+    <!-- Js Plugins -->
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static 'js/jquery.nicescroll.min.js' %}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/jquery.countdown.min.js' %}"></script>
+    <script src="{% static 'js/jquery.slicknav.js' %}"></script>
+    <script src="{% static 'js/mixitup.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>

@@ -1,0 +1,83 @@
+{% extends "admin/admin_base.html" %}
+
+{% block content %}
+ <!-- <nav  class=" navbar navbar-light navbar-fixed-top " style="background-color:#E6E6E3; height:7rem; z-index:-1;  position-relative">
+    <span class=" l-50 " style="font-size:45px; color:black; position:absolute; left:43%;">STYLAZA</span>
+</nav> -->
+
+<div class="pull-right search-box">
+    <form action="" method="get" class="search-form">
+          {% csrf_token %}
+        <div class="input-group">
+            <input name="key" class="form-control" placeholder="Search..." type="text">
+            <span class="input-group-btn">
+          <button type="submit"  id="search-btn" class="btn btn-flat"><i
+                  class="fa fa-search"></i> </button>
+          </span>
+        </div>
+    </form>
+    <!-- search form -->
+</div>
+<div class="content-header sty-one ml-5 ">
+    <div class=""><h2 class="text-dark font-weight-bold">ORDERS</h2></div>
+    {% for message in messages %}
+    <div  class="container">
+    <div {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %} role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
+        
+        {{ message }}
+    </div>
+    </div>
+    {% endfor %}
+</div>
+
+<hr class="m-t-1 m-b-3">
+
+<div class="table-responsive d-flex justify-content-center">
+            <table class="table table-hover m-3 shadow-lg p-3 ml-5 mb-5 bg-white rounded ml-4 mr-4 w-75">
+                <thead>
+                <tr>
+                    <th scope="col">Order #</th>
+                    <th scope="col">Billing Name</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Order Total</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Payment</th>
+                    <th scope="col">Update Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for order in orders %}
+                <tr>
+                    <th scope="row"><a href="{% url 'order-details-admin' order.id %}">{{order.order_number}}</a></th>
+                    <td>{{order.full_name}}</td>
+                    <td>{{order.phone}}</td>
+                    <td>${{order.order_total}}</td>
+                    <td>{{order.created_at}}</td>
+                    <td>{{order.status}}</td>
+                    <td>{{order.payment.payment_method}}</td>
+                    {% if order.status == 'Cancelled' %}
+                        <td>Can't Update</td>
+                    {% else %}
+                        <td class="list-inline"><form action="{% url 'order-status' order.order_number %}" method="post">
+                            {% csrf_token %}
+                            <select name="status" id="status">
+                            {% for status in status %}
+                            <option  value="{{status.1}}">{{status.1}}</option>
+                            {% endfor%}
+                            </select>
+                            <input class="btn btn-success" type="submit" value="Submit" onclick="return confirm('Are you sure want to update the status ?')">
+                            </form>
+                        </td>
+                    {% endif %}
+
+                </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+
+        </div>
+
+{% endblock content %}

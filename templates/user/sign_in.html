@@ -1,0 +1,108 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Form-v9 by Colorlib</title>
+	<!-- Mobile Specific Metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<!-- Font-->
+	<link rel="stylesheet" type="text/css" href="{% static 'user/css/nunito-font.css' %}">
+	<!-- Main Style Css -->
+    <link rel="stylesheet" href="{% static 'user/css/style.css' %}"/>
+	<style>
+		.form-v9-content .form-detail h2::after {
+	background-color:black;
+	width: 73px;
+	height: 3px;
+	content: "";
+	position: absolute;
+	top: 100%;
+	left: 50%;
+    transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+	-ms-transform: translateX(-50%);
+	-moz-transform: translateX(-50%);
+	-webkit-transform: translateX(-50%);
+}
+input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: black;
+  opacity: 0.5;
+  font-size: 16px;
+}
+input::-moz-placeholder { /* Firefox 19+ */
+  color: black;
+  font-size: 16px;
+}
+input:-ms-input-placeholder { /* IE 10+ */
+  color: black;
+  font-size: 16px;
+}
+input:-moz-placeholder { /* Firefox 18- */
+  color: black;
+  font-size: 16px;
+}
+.form-v9-content .form-detail .input-text {
+	margin-bottom: 45px;
+	background-color: white;
+
+}
+.form-v9-content  {
+	width: 975px;
+	border-radius: 15px;
+	-o-border-radius: 15px;
+	-ms-border-radius: 15px;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	margin: 185px 0;
+	font-family: 'Nunito', sans-serif;
+	color:black;
+	font-weight: 700;
+	font-size: 16px;
+	position: relative;
+}
+
+	</style>
+</head>
+<body class="form-v9">
+	
+
+	<div style="background-color:rgb(252, 242, 231)" class="page-content">
+		<div class="form-v9-content" >
+			<form class="form-detail" action="{% url 'loginpage' %}" id="login-form" method="post">
+				{% csrf_token %}
+				<h2 style="color:black">Sign In</h2>
+				
+				{% for message in messages %}
+				<p style="color:black; text-align:center">{{message}}</p>
+
+				{% endfor %}
+				<div style="display:flex; justify-content: center;" class="form-row-total">
+					
+					<div class="form-row">
+						
+						<input type="text" name="email" id="your-email" class="input-text" placeholder="Your Email" required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}">
+					</div>
+				</div>
+				<br>
+				<div style="display:flex; justify-content: center;"class="form-row-total">
+					<div class="form-row">
+						<input type="password" name="password" id="password" class="input-text" placeholder="Your Password" required>
+					</div>
+					
+				</div>
+				<div class="form-row-last">
+					<input type="submit" name="register" class="register" value="Sign In">
+					<p style="color:black">Dont have an account ?</p><a href="{% url 'register' %}"><p style="color:black">Sign Up</p></a>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
+  <script src="{% static 'js/login.js' %}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
+
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

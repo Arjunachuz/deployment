@@ -1,0 +1,46 @@
+from django.contrib import admin
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    
+    path('',views.index, name='index'),
+    path('login',views.index,name='login'),
+    path('adminhome/',views.adminhome,name='adminhome'),
+    path('adminlogout/',views.adminlogout,name='adminlogout'),
+    path('addadmincategory', views.addcategory, name='addcategory'),
+    path('editcategory/<int:id>/', views.editcategory, name='edit-category'),
+    path('deletecategory/<int:id>/', views.deletecategory, name='delete-category'),
+    path('admincategory', views.categoryList, name='categorylist'),
+    path('addadminbrand', views.addbrand, name='addbrand'),
+    path('editbrand/<int:id>/', views.editbrand, name='edit-brand'),
+    path('deletebrand/<int:id>/', views.deletebrand, name='delete-brand'),
+    path('adminbrand', views.brandList, name='brandlist'),
+    path('adminproduct', views.productList, name='productlist'),
+    path('editproduct/<int:id>', views.editproduct, name='edit-product'),
+    path('addadminproduct', views.addproduct, name='addproduct'),
+    path('inactive_product/<int:id>', views.inactive_product, name='inactive_product'),
+    path('active_product/<int:id>', views.active_product, name='active_product'),
+    path('adminuser', views.userlist, name='userlist'),
+    path('blockuser/<int:id>', views.blockuser, name='blockuser'),
+    path('unblockuser/<int:id>', views.unblockuser, name='unblockuser'),
+    path("order-display/", views.order_display, name="order-display"),
+    path("order-details-admin/<int:id>/",views.order_details_admin,name="order-details-admin",),
+    path("order-status/<int:id>/", views.order_status, name="order-status"),
+    path("admin-category-offers/", views.category_offer, name="category_offer"),
+    path("admin-add-category-offer/", views.add_category_offer, name="add_category_offer"),
+    path("admin-delete-category-offer/<int:offer_id>/",views.delete_category_offer, name="delete_category_offer"),
+    path("admin-brand-offers/", views.brand_offers, name="brand_offers"),
+    path("admin-add-brand-offer/", views.add_brand_offer, name="add_brand_offer"),
+    path("admin-delete-brand-offers/<int:offer_id>/",views.delete_brand_offer,name="delete_brand_offers"),
+    path("admin-product-offers/", views.product_offers, name="product_offers"),
+    path("admin-add-product-offers/", views.add_product_offer, name="add_product_offers"),
+    path("admin-delete-product-offers/<int:offer_id>/",views.delete_product_offer,name="delete_product_offers"),
+    path("view-coupon", views.view_coupon, name="view-coupon"),
+    path("add-admin-coupon", views.add_coupon, name="add-coupon"),
+    path("delete-coupon/<int:id>", views.delete_coupon, name="delete-coupon"),
+    path("sales-report", views.sales_report, name="sales-report"),
+    path("sales-export-csv", views.sales_export_csv, name="sales-export-csv"),
+    path("sales-export-pdf", views.sales_export_pdf, name="sales-export-pdf"),
+    
+]
